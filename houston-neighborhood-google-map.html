@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Houston Neighborhoods</title>
+	<style type="text/css">
+	#map {
+		width: 100%;
+		height: 700px;
+	}
+	</style>
+</head>
+<body>
+	<h1>Houston Neighborhoods</h1>
+	<div id="map"></div>
+
+	<!-- SCRIPTS -->
+	<script type="text/javascript">
+		function initMap() {
+			// Map options
+			var options = {
+				zoom: 10,
+				center: {lat: 29.76328, lng: -95.36327}
+			}
+
+			// Map object
+			var map = new google.maps.Map(document.querySelector('#map'), options);
+
+			// Neighborhoods color overlays
+			var neighborhoods = [
+				{
+					paths: [{lat: 29.76328, lng: -95.26327},
+						    {lat: 29.76328, lng: -95.36327},
+						    {lat: 29.66328, lng: -95.36327},
+						    {lat: 29.66328, lng: -95.26327}],
+					strokeColor: '#59B753',
+				    fillColor: '#BAE7A9'	     
+				},
+				{
+					paths: [{lat: 29.76328, lng: -95.46327},
+						    {lat: 29.76328, lng: -95.56327},
+						    {lat: 29.66328, lng: -95.56327},
+						    {lat: 29.66328, lng: -95.46327}],
+					strokeColor: '#3C7AC4',
+			        fillColor: '#ACDBFD'	     
+				},
+				{
+					paths: [{lat: 29.76328, lng: -95.06327},
+						    {lat: 29.76328, lng: -95.16327},
+						    {lat: 29.66328, lng: -95.16327},
+						    {lat: 29.66328, lng: -95.06327}],
+					strokeColor: '#F8BA26',
+			        fillColor: '#F5CE6D'     
+				},
+				{
+					paths: [{lat: 29.76328, lng: -95.66327},
+						    {lat: 29.76328, lng: -95.76327},
+						    {lat: 29.66328, lng: -95.76327},
+						    {lat: 29.66328, lng: -95.66327}],
+					strokeColor: '#B90F07',
+			        fillColor: '#E7453C'     
+				}
+			];
+
+			function generateNeighborhoods(singleNeighborhood, name) {
+				var newNeighborhood = new google.maps.Polygon({
+			      paths: singleNeighborhood.paths,
+			      strokeColor: singleNeighborhood.strokeColor,
+			      strokeOpacity: 1,
+			      strokeWeight: 2,
+			      fillColor: singleNeighborhood.fillColor,
+			      fillOpacity: 0.65
+			    });
+			    newNeighborhood.setMap(map);
+			}
+
+			for (var i = 0; i < neighborhoods.length; i++) {
+				generateNeighborhoods(neighborhoods[i]);
+			};
+
+
+		 	// Add a listener for the click event.
+	        // bermudaTriangle.addListener('click', showArrays);
+	        // bermudaTriangleTwo.addListener('click', showArraysTwo);
+
+	        // infoWindow = new google.maps.InfoWindow;
+
+	        /*------------------------------------------------------*/
+
+		    function showArrays(event) {
+		      var contentString = '<h3 style="color: #333; font-size: 25px;">Test Neighborhood 1</h3>' +
+		        				  '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>';
+
+		      // Replace the info window's content and position.
+		      infoWindow.setContent(contentString);
+		      infoWindow.setPosition(event.latLng);
+
+		      infoWindow.open(map);
+		    }
+
+		
+		}
+
+	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG-3_Y2631GsHrlXcYjpi_qnCsgzu8sjo&callback=initMap"></script>
+</body>
+</html>
