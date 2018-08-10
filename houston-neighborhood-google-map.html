@@ -23,7 +23,7 @@
 			// Map options
 			var options = {
 				zoom: 12,
-				center: {lat: 29.76328, lng: -95.36327}
+				center: {lat: 29.76328, lng: -95.41327}
 			}
 
 			// Map object
@@ -32,7 +32,22 @@
 			// Info Window
 			infoWindow = new google.maps.InfoWindow({ maxWidth: 400 });
 
+			// Rollover Neighborhood Title
+			titleWindow = new google.maps.InfoWindow({ maxWidth: 300 });
+
 	        /*------------------------------------------------------*/
+
+	        // Load neighborhood title into rollover window
+		    function setNeighborhoodTitle(event, neighborhoodData) {
+		    	// Grab content from neighborhood object
+		    	var contentString = neighborhoodData.htmlName;
+
+		    	// Replace the info window's content and position.
+		    	titleWindow.setContent(contentString);
+		    	titleWindow.setPosition(event.latLng);
+
+		    	titleWindow.open(map);
+		    }
 
 	        // Load neighborhood content into info window
 		    function setNeighborhoodContent(event, neighborhoodData) {
@@ -63,6 +78,16 @@
 			    //Add listener for popup info window box
 			    newNeighborhood.addListener('click', function(event) {
 			    	setNeighborhoodContent(event, singleNeighborhood);
+			    	titleWindow.close();
+			    });
+
+			    //Add listener for popup info window box
+			    newNeighborhood.addListener('mouseover', function(event) {
+			    	setNeighborhoodTitle(event, singleNeighborhood);
+			    });
+
+			    newNeighborhood.addListener('mouseout', function(event) {
+			    	titleWindow.close();
 			    });
 			}
 
